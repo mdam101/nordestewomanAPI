@@ -9,12 +9,13 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Ropa")
+@Table(name = "ropa")
 public class Ropa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ropa_seq")
