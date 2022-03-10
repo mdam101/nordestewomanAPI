@@ -2,6 +2,7 @@ package com.tienda.nordeste.models.ropa;
 
 import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
 import com.tienda.nordeste.models.categoria.Categoria;
+import com.tienda.nordeste.models.lineaPedido.LineaPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -39,4 +40,7 @@ public class Ropa {
     //Relaciones
     @ManyToOne
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "ropa", cascade = CascadeType.ALL)
+    private List<LineaPedido> lineaspedidos;
 }
