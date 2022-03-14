@@ -1,7 +1,7 @@
 package com.tienda.nordeste.controllers;
 
 import com.tienda.nordeste.models.categoria.Categoria;
-import com.tienda.nordeste.models.categoria.CategoriaDTO;
+import com.tienda.nordeste.models.categoria.CategoriaInputDTO;
 import com.tienda.nordeste.models.categoria.CategoriaOutputDTO;
 import com.tienda.nordeste.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,16 @@ public class CategoriaController {
     //Ver categorías
     @GetMapping("/categorias")
     public ResponseEntity<?> getCategorias() {
-        List<Categoria> listCategorias = new ArrayList<Categoria>();
+        List<Categoria> categorias = categoriaService.findAll();
         List<CategoriaOutputDTO> categoriaOutput = new ArrayList<CategoriaOutputDTO>();
+        for(Categoria categoria: categorias) {
+            categoriaOutput.add(new CategoriaOutputDTO(categoria));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(categoriaOutput);
     }
 
     //Ver categoría por id
-    @GetMapping("/categoria/detail/{idCategoria}")
+    @GetMapping("/categoria/{idCategoria}")
     public ResponseEntity<?> getCategoriaById(@PathVariable String idCategoria) {
         Optional<Categoria> categoriaOptional = categoriaService.findById(idCategoria);
         if(categoriaOptional.isPresent()) {
@@ -40,15 +43,15 @@ public class CategoriaController {
     }
 
     //Añadir categoría
-    @GetMapping("/categoria/add")
-    public ResponseEntity<?> addCategoria(@RequestBody CategoriaDTO categoriaInput) {
+    @PostMapping("/categoria/add")
+    public ResponseEntity<?> addCategoria(@RequestBody CategoriaInputDTO categoriaInput) {
         Categoria categoria = categoriaInput.getCategoria(categoriaInput, new Categoria());
         categoriaService.save(categoria);
         return ResponseEntity.status(HttpStatus.OK).body(new CategoriaOutputDTO(categoria));
     }
 
     //Borrar categoría
-    @GetMapping("/categoria/delete/{id}")
+    @DeleteMapping("/categoria/delete/{id}")
     public ResponseEntity<?> deleteCategoria(@PathVariable String id) {
         Optional<Categoria> categoriaOptional = categoriaService.findById(id);
         if(categoriaOptional.isPresent()) {
