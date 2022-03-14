@@ -12,7 +12,7 @@ public class RopaService extends BaseService<Ropa, String, RopaRepository> {
     @Autowired
     private RopaRepository ropaRepository;
 
-    public Optional<Ropa> findByIsbn(String id){
+    public Optional<Ropa> findById(String id){
         return ropaRepository.findById(id);
     }
 }
