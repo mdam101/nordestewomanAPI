@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, String> {
     public Optional<Categoria> findById(String id);
+
+    public Optional<Categoria> findByNombre(String nombre);
 }

@@ -46,19 +46,24 @@ public class CategoriaController {
     @PostMapping("/categoria/add")
     public ResponseEntity<?> addCategoria(@RequestBody CategoriaInputDTO categoriaInput) {
         Categoria categoria = categoriaInput.getCategoria(categoriaInput, new Categoria());
-        categoriaService.save(categoria);
-        return ResponseEntity.status(HttpStatus.OK).body(new CategoriaOutputDTO(categoria));
+        Optional<Categoria> categoriaOptional = categoriaService.findByNombre(categoriaInput.getNombre());
+        if(categoriaOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Esta categoría ya existe");
+        } else {
+            categoriaService.save(categoria);
+            return ResponseEntity.status(HttpStatus.OK).body(new CategoriaOutputDTO(categoria));
+        }
     }
 
     //Borrar categoría
     @DeleteMapping("/categoria/delete/{id}")
     public ResponseEntity<?> deleteCategoria(@PathVariable String id) {
-        Optional<Categoria> categoriaOptional = categoriaService.findById(id);
-        if(categoriaOptional.isPresent()) {
-            categoriaService.delete(categoriaOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        try {
+            Categoria categoria = categoriaService.findById(id).orElseThrow(() -> new  Exception("Esta categoría no existe, no se puede borrar"));
+            categoriaService.delete(categoria);
+            return ResponseEntity.status(HttpStatus.OK).body("La categoría se ha borrado con éxito");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

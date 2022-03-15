@@ -16,4 +16,8 @@ public class CategoriaService extends BaseService<Categoria, String, CategoriaRe
     public Optional<Categoria> findById(String id){
         return categoriaRepository.findById(id);
     }
+
+    public Optional<Categoria> findByNombre(String nombre) {
+        return categoriaRepository.findByNombre(nombre);
+    }
 }
