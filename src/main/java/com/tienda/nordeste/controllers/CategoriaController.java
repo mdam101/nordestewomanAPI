@@ -33,12 +33,11 @@ public class CategoriaController {
     //Ver categoría por id
     @GetMapping("/categoria/{idCategoria}")
     public ResponseEntity<?> getCategoriaById(@PathVariable String idCategoria) {
-        Optional<Categoria> categoriaOptional = categoriaService.findById(idCategoria);
-        if(categoriaOptional.isPresent()) {
-            Categoria categoria = categoriaOptional.get();
+        try {
+            Categoria categoria = categoriaService.findById(idCategoria).orElseThrow(() -> new Exception("La categoría que buscas no existe."));
             return ResponseEntity.status(HttpStatus.OK).body(new CategoriaOutputDTO(categoria));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 

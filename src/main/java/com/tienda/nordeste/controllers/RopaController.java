@@ -38,12 +38,11 @@ public class RopaController {
     //Ver ropa por id
     @GetMapping("/ropa/{idRopa}")
     public ResponseEntity<?> getRopaById(@PathVariable String idRopa) {
-        Optional<Ropa> ropaOptional = ropaService.findById(idRopa);
-        if(ropaOptional.isPresent()) {
-            Ropa ropa = ropaOptional.get();
+        try {
+            Ropa ropa = ropaService.findById(idRopa).orElseThrow(() -> new Exception("La prenda que buscas no existe."));
             return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropa));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
@@ -95,12 +94,12 @@ public class RopaController {
     //Borrar ropa
     @DeleteMapping("/ropa/delete/{id}")
     public ResponseEntity<?> deleteRopa(@PathVariable String id) {
-        Optional<Ropa> ropaOptional = ropaService.findById(id);
-        if(ropaOptional.isPresent()) {
-            ropaService.delete(ropaOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        try {
+            Ropa ropa = ropaService.findById(id).orElseThrow(() -> new Exception("No se ha podido borrar la prenda."));
+            ropaService.delete(ropa);
+            return ResponseEntity.status(HttpStatus.OK).body("La prenda se ha borrado correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
