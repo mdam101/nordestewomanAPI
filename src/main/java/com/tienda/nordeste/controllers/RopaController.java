@@ -46,10 +46,10 @@ public class RopaController {
         }
     }
 
-    //Ver ropa por id categoría
-    @GetMapping("/ropa/categoria/{idCategoria}")
-    public ResponseEntity<?> getRopaByIdCategoria(@PathVariable String idCategoria) {
-        List<Ropa> ropas = ropaService.findByCategoriaId(idCategoria);
+    //Ver ropa por nombre de categoría
+    @GetMapping("/ropa/categoria/{nombreCategoria}")
+    public ResponseEntity<?> getRopaByNombreCategoria(@PathVariable String nombreCategoria) {
+        List<Ropa> ropas = ropaService.findByCategoriaNombre(nombreCategoria);
         if(ropas.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ha encontrado nada en esta categoría o no existe");
         } else {
@@ -64,9 +64,9 @@ public class RopaController {
     //Añadir ropa
     @PostMapping("/ropa/add")
     public ResponseEntity<?> addRopa(@RequestBody RopaInputDTO ropaInput) {
-        String idcategoria = ropaInput.getIdcategoria();
+        String nombreCategoria = ropaInput.getNombreCategoria();
         try {
-            Categoria categoria = categoriaService.findById(idcategoria).orElseThrow(() -> new Exception("No se puede añadir ropa a una categoría que no existe."));
+            Categoria categoria = categoriaService.findByNombre(nombreCategoria).orElseThrow(() -> new Exception("No se puede añadir ropa a una categoría que no existe."));
             Ropa ropa = ropaInput.getRopa(ropaInput, new Ropa());
             ropa.setCategoria(categoria);
             ropaService.save(ropa);
@@ -81,11 +81,11 @@ public class RopaController {
     public ResponseEntity<?> editRopa(@PathVariable String id, @RequestBody RopaInputDTO ropaInput) {
         try {
             Ropa ropa = ropaService.findById(id).orElseThrow(() -> new Exception("No existe esta prenda"));
-            Categoria categoria = categoriaService.findById(ropaInput.getIdcategoria()).orElseThrow(() -> new Exception("No existe esta categoría"));
+            Categoria categoria = categoriaService.findById(ropaInput.getNombreCategoria()).orElseThrow(() -> new Exception("No existe esta categoría"));
             Ropa ropaEditada = ropaInput.getRopa(ropaInput, ropa);
             ropaEditada.setCategoria(categoria);
             ropaService.edit(ropaEditada);
-            return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropa));
+            return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropaEditada));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

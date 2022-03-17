@@ -45,12 +45,12 @@ public class CategoriaController {
     @PostMapping("/categoria/add")
     public ResponseEntity<?> addCategoria(@RequestBody CategoriaInputDTO categoriaInput) {
         Categoria categoria = categoriaInput.getCategoria(categoriaInput, new Categoria());
-        Optional<Categoria> categoriaOptional = categoriaService.findByNombre(categoriaInput.getNombre());
-        if(categoriaOptional.isPresent()) {
+        try {
+            categoriaService.findByNombre(categoriaInput.getNombre()).orElseThrow(() -> new Exception("La categoría se creó correctamente"));
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Esta categoría ya existe");
-        } else {
+        } catch (Exception e) {
             categoriaService.save(categoria);
-            return ResponseEntity.status(HttpStatus.OK).body(new CategoriaOutputDTO(categoria));
+            return ResponseEntity.status(HttpStatus.OK).body(e.getMessage());
         }
     }
 

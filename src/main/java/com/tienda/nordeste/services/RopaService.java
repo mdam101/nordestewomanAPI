@@ -18,7 +18,5 @@ public class RopaService extends BaseService<Ropa, String, RopaRepository> {
         return ropaRepository.findById(id);
     }
 
-    public List<Ropa> findByCategoriaId(String idCategoria) {
-        return ropaRepository.findByCategoriaId(idCategoria);
-    }
+    public List<Ropa> findByCategoriaNombre(String nombreCategoria) { return ropaRepository.findByCategoriaNombre(nombreCategoria); }
 }

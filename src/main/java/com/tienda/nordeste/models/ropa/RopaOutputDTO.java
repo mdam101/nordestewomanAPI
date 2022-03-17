@@ -12,6 +12,7 @@ public class RopaOutputDTO {
     private String descripcion;
     private String talla;
     private Double precio;
+    public String nombreCategoria;
 
     public RopaOutputDTO(Ropa ropa) {
         this.setId(ropa.getId());
@@ -19,5 +20,6 @@ public class RopaOutputDTO {
         this.setDescripcion(ropa.getDescripcion());
         this.setTalla(ropa.getTalla());
         this.setPrecio(ropa.getPrecio());
+        this.setNombreCategoria(ropa.getCategoria().getNombre());
     }
 }

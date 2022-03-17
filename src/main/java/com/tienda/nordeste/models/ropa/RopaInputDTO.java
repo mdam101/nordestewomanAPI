@@ -11,7 +11,7 @@ public class RopaInputDTO {
     private String descripcion;
     private String talla;
     private Double precio;
-    private String idcategoria;
+    private String nombreCategoria;
 
 
     public Ropa getRopa(RopaInputDTO ropaInput, Ropa ropa) {

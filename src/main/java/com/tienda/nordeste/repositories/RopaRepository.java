@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface RopaRepository extends JpaRepository<Ropa, String> {
     public Optional<Ropa> findById(String id);
-    public List<Ropa> findByCategoriaId(String idCategoria);
+    public List<Ropa> findByCategoriaNombre(String nombreCategoria);
 }
