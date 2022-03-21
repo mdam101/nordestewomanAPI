@@ -13,6 +13,7 @@ public class RopaOutputDTO {
     private String talla;
     private Double precio;
     public String nombreCategoria;
+    public String urlImagen;
 
     public RopaOutputDTO(Ropa ropa) {
         this.setId(ropa.getId());
@@ -21,5 +22,6 @@ public class RopaOutputDTO {
         this.setTalla(ropa.getTalla());
         this.setPrecio(ropa.getPrecio());
         this.setNombreCategoria(ropa.getCategoria().getNombre());
+        this.setUrlImagen("https://localhost:8080/ropa/imagen/" + ropa.getId());
     }
 }

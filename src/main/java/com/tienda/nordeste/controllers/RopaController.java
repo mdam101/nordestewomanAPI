@@ -8,12 +8,13 @@ import com.tienda.nordeste.services.CategoriaService;
 import com.tienda.nordeste.services.RopaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.OPTIONS})
@@ -46,6 +47,13 @@ public class RopaController {
         }
     }
 
+    //Ver imagen ropa
+    @GetMapping(value = "/ropa/imagen/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<?> getImagen(@PathVariable String id) {
+        //buscar para hacerlo
+        return null;
+    }
+
     //Ver ropa por nombre de categoría
     @GetMapping("/ropa/categoria/{nombreCategoria}")
     public ResponseEntity<?> getRopaByNombreCategoria(@PathVariable String nombreCategoria) {
@@ -63,16 +71,14 @@ public class RopaController {
 
     //Añadir ropa
     @PostMapping("/ropa/add")
-    public ResponseEntity<?> addRopa(@RequestBody RopaInputDTO ropaInput) {
-        String nombreCategoria = ropaInput.getNombreCategoria();
+    public ResponseEntity<?> addRopa(@RequestParam String nombre, @RequestParam String descripcion, @RequestParam String talla, @RequestParam Double precio, @RequestParam String nombreCategoria, @RequestPart("file")MultipartFile file) {
         try {
             Categoria categoria = categoriaService.findByNombre(nombreCategoria).orElseThrow(() -> new Exception("No se puede añadir ropa a una categoría que no existe."));
-            Ropa ropa = ropaInput.getRopa(ropaInput, new Ropa());
-            ropa.setCategoria(categoria);
+            Ropa ropa = ropaService.crearRopa(nombre, descripcion, talla, precio, categoria, file);
             ropaService.save(ropa);
             return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropa));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 
@@ -81,11 +87,24 @@ public class RopaController {
     public ResponseEntity<?> editRopa(@PathVariable String id, @RequestBody RopaInputDTO ropaInput) {
         try {
             Ropa ropa = ropaService.findById(id).orElseThrow(() -> new Exception("No existe esta prenda"));
-            Categoria categoria = categoriaService.findById(ropaInput.getNombreCategoria()).orElseThrow(() -> new Exception("No existe esta categoría"));
+            Categoria categoria = categoriaService.findByNombre(ropaInput.getNombreCategoria()).orElseThrow(() -> new Exception("No existe esta categoría"));
             Ropa ropaEditada = ropaInput.getRopa(ropaInput, ropa);
             ropaEditada.setCategoria(categoria);
             ropaService.edit(ropaEditada);
             return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropaEditada));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    //Editar imagen ropa
+    @PutMapping("/ropa/editImage/{id}")
+    public ResponseEntity<?> editImageRopa(@PathVariable String id, @RequestPart MultipartFile file) {
+        try {
+            Ropa ropa = ropaService.findById(id).orElseThrow(() -> new Exception("No se ha encontrado la prenda"));
+            ropa.setImagen(file.getBytes());
+            ropaService.save(ropa);
+            return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropa));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
