@@ -7,12 +7,12 @@ import com.tienda.nordeste.models.ropa.RopaOutputDTO;
 import com.tienda.nordeste.services.CategoriaService;
 import com.tienda.nordeste.services.RopaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +50,13 @@ public class RopaController {
     //Ver imagen ropa
     @GetMapping(value = "/ropa/imagen/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<?> getImagen(@PathVariable String id) {
-        //buscar para hacerlo
-        return null;
+        try {
+            Ropa ropa = ropaService.findById(id).orElseThrow(() -> new Exception("No existe esta prenda"));
+            byte[] imageBytes = ropa.getImagen();
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     //Ver ropa por nombre de categoría
