@@ -50,7 +50,7 @@ public class PedidoController {
     }
 
     //Añadir pedido
-    @PostMapping("/pedido/add")
+    @PostMapping("/pedido/add") //Da 404, revisar
     public ResponseEntity<?> addPedido(@RequestBody PedidoInputDTO pedidoInput) {
         try {
             Pedido pedido = pedidoInput.pedido();
@@ -74,13 +74,6 @@ public class PedidoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-    }
-
-    //Editar pedido
-    @PutMapping("/pedido/edit/{id}")
-    public ResponseEntity<?> editPedido() {
-        return null;
-        //Por hacer
     }
 
     //Borrar pedido
