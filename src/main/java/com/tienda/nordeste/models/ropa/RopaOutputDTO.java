@@ -1,6 +1,5 @@
 package com.tienda.nordeste.models.ropa;
 
-import com.tienda.nordeste.models.categoria.Categoria;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

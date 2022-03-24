@@ -13,4 +13,12 @@ public class LineaPedidoService extends BaseService<LineaPedido, String, LineaPe
     public Optional<LineaPedido> findById(String id){
         return lineaPedidoRepository.findById(id);
     }
+
+    public LineaPedido crearLineaPedido(Integer numero_linea, Integer cantidad, Double precio_unidad) {
+        LineaPedido lineaPedido = new LineaPedido();
+        lineaPedido.setNumero_linea(numero_linea);
+        lineaPedido.setCantidad(cantidad);
+        lineaPedido.setPrecio_unidad(precio_unidad);
+        return lineaPedido;
+    }
 }

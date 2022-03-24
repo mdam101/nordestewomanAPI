@@ -30,6 +30,6 @@ public class RopaService extends BaseService<Ropa, String, RopaRepository> {
          ropa.setPrecio(precio);
          ropa.setCategoria(categoria);
          ropa.setImagen(file.getBytes());
-        return ropa;
+         return ropa;
     }
 }
