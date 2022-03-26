@@ -68,7 +68,7 @@ public class PedidoController {
                 lineaPedido.setNumero_linea(numLinea++);
                 lineaPedidoService.save(lineaPedido);
             }
-            pedido.setLineapedido(lineasPedido);
+            pedido.setLineaspedido(lineasPedido);
             pedidoService.edit(pedido);
             return ResponseEntity.status(HttpStatus.OK).body(new PedidoOutputDTO(pedido));
         } catch (Exception e) {

@@ -1,12 +1,14 @@
 package com.tienda.nordeste.models.usuario;
 
 import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
+import com.tienda.nordeste.models.pedido.Pedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,6 +34,11 @@ public class Usuario {
 
     private String password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     Set<UserRole> rol;
+
+    //Relaciones
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
 }

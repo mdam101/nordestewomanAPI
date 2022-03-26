@@ -26,7 +26,7 @@ public class PedidoOutputDTO {
         this.setMetodo_pago(pedido.getMetodo_pago());
         this.setEntregado(pedido.getEntregado());
         List<LineaPedidoOutputDTO> lineas = new ArrayList<>();
-        for(LineaPedido l: pedido.getLineapedido()) {
+        for(LineaPedido l: pedido.getLineaspedido()) {
             lineas.add(new LineaPedidoOutputDTO(l));
         }
         this.setLineas(lineas);

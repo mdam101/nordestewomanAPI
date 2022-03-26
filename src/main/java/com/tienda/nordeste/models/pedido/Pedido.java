@@ -3,6 +3,7 @@ package com.tienda.nordeste.models.pedido;
 import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
 import com.tienda.nordeste.models.lineaPedido.LineaPedido;
 import com.tienda.nordeste.models.lineaPedido.LineaPedidoOutputDTO;
+import com.tienda.nordeste.models.usuario.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,5 +38,8 @@ public class Pedido {
 
     //Relaciones
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<LineaPedido> lineapedido;
+    private List<LineaPedido> lineaspedido;
+
+    @ManyToOne
+    private Usuario usuario;
 }
