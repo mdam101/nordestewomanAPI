@@ -29,6 +29,7 @@ public class Categoria {
                     @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%04d")
             })
     private String id;
+
     @Column(unique = true, nullable = false)
     private String nombre;
 
