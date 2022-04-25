@@ -26,7 +26,6 @@ public class RopaService extends BaseService<Ropa, String, RopaRepository> {
          Ropa ropa = new Ropa();
          ropa.setNombre(nombre);
          ropa.setDescripcion(descripcion);
-         ropa.setTalla(talla);
          ropa.setPrecio(precio);
          ropa.setCategoria(categoria);
          ropa.setImagen(file.getBytes());

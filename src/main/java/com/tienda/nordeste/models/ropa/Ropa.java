@@ -31,7 +31,6 @@ public class Ropa {
     private String id;
     private String nombre;
     private String descripcion;
-    private String talla;
     private Double precio;
     @Column(name = "imagen" , length = 4096000)
     @Lob()

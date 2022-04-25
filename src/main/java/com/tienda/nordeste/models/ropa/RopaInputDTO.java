@@ -21,9 +21,6 @@ public class RopaInputDTO {
         if(ropaInput.getDescripcion()!=null) {
             ropa.setDescripcion(ropaInput.getDescripcion());
         }
-        if(ropaInput.getTalla()!=null) {
-            ropa.setTalla(ropaInput.getTalla());
-        }
         if(ropaInput.getPrecio()!=null) {
             ropa.setPrecio(ropaInput.getPrecio());
         }
