@@ -76,10 +76,10 @@ public class RopaController {
 
     //Añadir ropa
     @PostMapping("/ropa/add")
-    public ResponseEntity<?> addRopa(@RequestParam String nombre, @RequestParam String descripcion, @RequestParam String talla, @RequestParam Double precio, @RequestParam String nombreCategoria, @RequestPart("file")MultipartFile file) {
+    public ResponseEntity<?> addRopa(@RequestParam String nombre, @RequestParam String descripcion, @RequestParam Double precio, @RequestParam String nombreCategoria, @RequestPart("file")MultipartFile file) {
         try {
             Categoria categoria = categoriaService.findByNombre(nombreCategoria).orElseThrow(() -> new Exception("No se puede añadir ropa a una categoría que no existe."));
-            Ropa ropa = ropaService.crearRopa(nombre, descripcion, talla, precio, categoria, file);
+            Ropa ropa = ropaService.crearRopa(nombre, descripcion, precio, categoria, file);
             ropaService.save(ropa);
             return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropa));
         } catch (Exception e) {

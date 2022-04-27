@@ -22,6 +22,8 @@ public class UsuarioService extends BaseService<Usuario, String, UsuarioReposito
         return this.usuarioRepository.findByEmail(email);
     }
 
+    public Optional<Usuario> findById(String id) { return this.usuarioRepository.findById(id); }
+
     public Usuario nuevoUsuario(Usuario usuario) {
         Set<UserRole> defaultRole = new HashSet<UserRole>();
         //encode password

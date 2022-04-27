@@ -22,7 +22,7 @@ public class RopaService extends BaseService<Ropa, String, RopaRepository> {
 
     public List<Ropa> findByCategoriaNombre(String nombreCategoria) { return ropaRepository.findByCategoriaNombre(nombreCategoria); }
 
-    public Ropa crearRopa(String nombre, String descripcion, String talla, Double precio, Categoria categoria, MultipartFile file) throws IOException {
+    public Ropa crearRopa(String nombre, String descripcion, Double precio, Categoria categoria, MultipartFile file) throws IOException {
          Ropa ropa = new Ropa();
          ropa.setNombre(nombre);
          ropa.setDescripcion(descripcion);
