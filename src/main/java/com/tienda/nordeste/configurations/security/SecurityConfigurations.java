@@ -52,7 +52,6 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/usuario").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .anyRequest().authenticated()
                 .and().csrf().disable();
         http.cors();
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

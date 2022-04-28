@@ -3,7 +3,7 @@ package com.tienda.nordeste.models.ropa;
 import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
 import com.tienda.nordeste.models.categoria.Categoria;
 import com.tienda.nordeste.models.lineaPedido.LineaPedido;
-import com.tienda.nordeste.models.talla.Talla;
+import com.tienda.nordeste.models.talla.TallaRopa;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,7 +44,6 @@ public class Ropa {
     @OneToMany(mappedBy = "ropa", cascade = CascadeType.ALL)
     private List<LineaPedido> lineaspedidos;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "talla_ropa", joinColumns = {@JoinColumn(name = "ropa_id")}, inverseJoinColumns = {@JoinColumn(name = "talla_id")})
-    private List<Talla> tallas;
+    @OneToMany(mappedBy = "ropa")
+    List<TallaRopa> tallaRopas;
 }

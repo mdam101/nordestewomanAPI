@@ -9,7 +9,6 @@ public class RopaOutputDTO {
     private String id;
     private String nombre;
     private String descripcion;
-    private String talla;
     private Double precio;
     public String nombreCategoria;
     public String urlImagen;
@@ -20,6 +19,6 @@ public class RopaOutputDTO {
         this.setDescripcion(ropa.getDescripcion());
         this.setPrecio(ropa.getPrecio());
         this.setNombreCategoria(ropa.getCategoria().getNombre());
-        this.setUrlImagen("https://localhost:8080/ropa/imagen/" + ropa.getId());
+        this.setUrlImagen("https://nordestewoman.herokuapp.com/ropa/imagen/" + ropa.getId());
     }
 }

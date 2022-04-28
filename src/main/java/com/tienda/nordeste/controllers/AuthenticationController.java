@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final jwtTokenProvider tokenProvider;
-    private final UserDTOConverter converter;
 
     @PostMapping("/auth/login")
     public JwtUserResponse login(@RequestBody UsuarioInputDTO userLogin) {
