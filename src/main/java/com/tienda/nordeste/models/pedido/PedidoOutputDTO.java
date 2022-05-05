@@ -3,13 +3,16 @@ package com.tienda.nordeste.models.pedido;
 import com.tienda.nordeste.models.lineaPedido.LineaPedido;
 import com.tienda.nordeste.models.lineaPedido.LineaPedidoOutputDTO;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class PedidoOutputDTO {
     private String id;

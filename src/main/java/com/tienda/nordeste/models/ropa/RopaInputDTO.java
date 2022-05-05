@@ -2,9 +2,12 @@ package com.tienda.nordeste.models.ropa;
 
 import com.tienda.nordeste.models.categoria.Categoria;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class RopaInputDTO {
     private String nombre;

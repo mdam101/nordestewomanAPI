@@ -1,15 +1,15 @@
 package com.tienda.nordeste.models.talla;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
 import com.tienda.nordeste.models.ropa.Ropa;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -30,8 +30,9 @@ public class TallaRopa {
     private Integer stock;
 
     @Enumerated(EnumType.STRING)
-    Talla talla;
+    private Talla talla;
 
     @ManyToOne
+    @JsonBackReference
     private Ropa ropa;
 }

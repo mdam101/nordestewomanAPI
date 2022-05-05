@@ -3,15 +3,14 @@ package com.tienda.nordeste.models.lineaPedido;
 import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
 import com.tienda.nordeste.models.pedido.Pedido;
 import com.tienda.nordeste.models.ropa.Ropa;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

@@ -3,9 +3,12 @@ package com.tienda.nordeste.models.lineaPedido;
 import com.tienda.nordeste.models.ropa.Ropa;
 import com.tienda.nordeste.models.ropa.RopaOutputDTO;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class LineaPedidoOutputDTO {
     private Integer numero_linea;

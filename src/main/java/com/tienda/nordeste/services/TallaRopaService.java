@@ -15,14 +15,14 @@ public class TallaRopaService extends BaseService<TallaRopa, String, TallaRopaRe
     @Autowired
     private TallaRopaRepository tallaRopaRepository;
 
-    public Optional<TallaRopa> findByRopaAndTalla(String Ropa, String talla) {
-        return tallaRopaRepository.findByRopaAndTalla(Ropa, talla);
+    public Optional<TallaRopa> findByRopaIdAndTalla(String idRopa, Talla talla) {
+        return tallaRopaRepository.findByRopaIdAndTalla(idRopa, talla);
     }
 
-    public TallaRopa crearTallaRopa(Ropa idRopa, String talla, Integer stock) throws IOException {
+    public TallaRopa crearTallaRopa(Ropa ropa, Talla talla, Integer stock) throws IOException {
         TallaRopa tallaRopa = new TallaRopa();
-        tallaRopa.setRopa(idRopa);
-        tallaRopa.setTalla(Talla.valueOf(talla));
+        tallaRopa.setRopa(ropa);
+        tallaRopa.setTalla(talla);
         tallaRopa.setStock(stock);
         return tallaRopa;
     }

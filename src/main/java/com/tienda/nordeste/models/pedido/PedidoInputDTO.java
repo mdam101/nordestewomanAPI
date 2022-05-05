@@ -2,13 +2,16 @@ package com.tienda.nordeste.models.pedido;
 
 import com.tienda.nordeste.models.lineaPedido.LineaPedidoInputDTO;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class PedidoInputDTO {
     private Double precio;

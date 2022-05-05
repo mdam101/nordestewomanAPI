@@ -8,11 +8,11 @@ import com.tienda.nordeste.services.CategoriaService;
 import com.tienda.nordeste.services.RopaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +60,7 @@ public class RopaController {
     }
 
     //Ver ropa por nombre de categoría
+    @Transactional(readOnly = true)
     @GetMapping("/ropa/categoria/{nombreCategoria}")
     public ResponseEntity<?> getRopaByNombreCategoria(@PathVariable String nombreCategoria) {
         List<Ropa> ropas = ropaService.findByCategoriaNombre(nombreCategoria);

@@ -4,9 +4,7 @@ import com.tienda.nordeste.configurations.StringPrefixedSequenceIdGenerator;
 import com.tienda.nordeste.models.lineaPedido.LineaPedido;
 import com.tienda.nordeste.models.lineaPedido.LineaPedidoOutputDTO;
 import com.tienda.nordeste.models.usuario.Usuario;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -14,7 +12,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
