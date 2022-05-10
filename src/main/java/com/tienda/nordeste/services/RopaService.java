@@ -1,7 +1,10 @@
 package com.tienda.nordeste.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tienda.nordeste.models.categoria.Categoria;
 import com.tienda.nordeste.models.ropa.Ropa;
+import com.tienda.nordeste.models.ropa.RopaInputDTO;
 import com.tienda.nordeste.repositories.RopaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +33,10 @@ public class RopaService extends BaseService<Ropa, String, RopaRepository> {
          ropa.setCategoria(categoria);
          ropa.setImagen(file.getBytes());
          return ropa;
+    }
+
+    public RopaInputDTO getRopaInputDTO(String ropa) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(ropa, RopaInputDTO.class);
     }
 }

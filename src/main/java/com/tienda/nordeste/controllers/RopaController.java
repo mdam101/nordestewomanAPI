@@ -76,13 +76,16 @@ public class RopaController {
     }
 
     //Añadir ropa
-    @PostMapping("/ropa/add")
-    public ResponseEntity<?> addRopa(@RequestParam String nombre, @RequestParam String descripcion, @RequestParam Double precio, @RequestParam String nombreCategoria, @RequestPart("file")MultipartFile file) {
+    @PostMapping(value = "/ropa/add", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<?> addRopa(@RequestPart("ropa") String ropa, @RequestPart("file") MultipartFile file) {
         try {
-            Categoria categoria = categoriaService.findByNombre(nombreCategoria).orElseThrow(() -> new Exception("No se puede añadir ropa a una categoría que no existe."));
-            Ropa ropa = ropaService.crearRopa(nombre, descripcion, precio, categoria, file);
-            ropaService.save(ropa);
-            return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropa));
+            RopaInputDTO ropaInput = ropaService.getRopaInputDTO(ropa);
+            Categoria categoria = categoriaService.findByNombre(ropaInput.getNombreCategoria()).orElseThrow(() -> new Exception("No se puede añadir ropa a una categoría que no existe."));
+            Ropa ropares = ropaInput.getRopa(ropaInput, new Ropa());
+            ropares.setImagen(file.getBytes());
+            ropares.setCategoria(categoria);
+            ropaService.save(ropares);
+            return ResponseEntity.status(HttpStatus.OK).body(new RopaOutputDTO(ropares));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
