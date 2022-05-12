@@ -3,6 +3,7 @@ package com.tienda.nordeste.controllers;
 import com.tienda.nordeste.configurations.security.jwt.jwtTokenProvider;
 import com.tienda.nordeste.models.usuario.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,7 +46,7 @@ public class AuthenticationController {
     private JwtUserResponse convertUserEntityAndTokenToJwtUserResponse(Usuario user, String jwtToken) {
         return JwtUserResponse
                 .jwtUserResponseBuilder()
-                .id(Integer.valueOf(user.getId()))
+                .id(user.getId())
                 .email(user.getEmail())
                 .roles(user.getRol())
                 .token(jwtToken)

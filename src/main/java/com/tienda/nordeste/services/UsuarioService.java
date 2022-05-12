@@ -6,6 +6,7 @@ import com.tienda.nordeste.repositories.UsuarioRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -14,6 +15,10 @@ import java.util.Set;
 
 @Service
 public class UsuarioService extends BaseService<Usuario, String, UsuarioRepository> {
+
+    @Autowired
+    @Lazy
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -26,7 +31,7 @@ public class UsuarioService extends BaseService<Usuario, String, UsuarioReposito
 
     public Usuario nuevoUsuario(Usuario usuario) {
         Set<UserRole> defaultRole = new HashSet<UserRole>();
-        //encode password
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         if(usuario.getRol() == null) {
             defaultRole.add(UserRole.USER);
             usuario.setRol(defaultRole);

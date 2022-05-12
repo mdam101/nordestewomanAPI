@@ -37,7 +37,7 @@ public class RopaController {
     }
 
     //Ver ropa por id
-    @GetMapping("/ropa/{idRopa}")
+    @GetMapping("/ropas/{idRopa}")
     public ResponseEntity<?> getRopaById(@PathVariable String idRopa) {
         try {
             Ropa ropa = ropaService.findById(idRopa).orElseThrow(() -> new Exception("La prenda que buscas no existe."));
@@ -48,7 +48,7 @@ public class RopaController {
     }
 
     //Ver imagen ropa
-    @GetMapping(value = "/ropa/imagen/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/ropas/imagen/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<?> getImagen(@PathVariable String id) {
         try {
             Ropa ropa = ropaService.findById(id).orElseThrow(() -> new Exception("No existe esta prenda"));
@@ -61,7 +61,7 @@ public class RopaController {
 
     //Ver ropa por nombre de categoría
     @Transactional(readOnly = true)
-    @GetMapping("/ropa/categoria/{nombreCategoria}")
+    @GetMapping("/ropas/categoria/{nombreCategoria}")
     public ResponseEntity<?> getRopaByNombreCategoria(@PathVariable String nombreCategoria) {
         List<Ropa> ropas = ropaService.findByCategoriaNombre(nombreCategoria);
         if(ropas.isEmpty()) {

@@ -52,6 +52,10 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/usuario").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .regexMatchers("/ropa/.*").hasRole("ADMIN")
+                .regexMatchers("/categoria/.*").hasRole("ADMIN")
+                .regexMatchers("/tallaropa/.*").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and().csrf().disable();
         http.cors();
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
