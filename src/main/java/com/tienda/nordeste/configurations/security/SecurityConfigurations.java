@@ -55,6 +55,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .regexMatchers("/ropa/.*").hasRole("ADMIN")
                 .regexMatchers("/categoria/.*").hasRole("ADMIN")
                 .regexMatchers("/tallaropa/.*").hasRole("ADMIN")
+                .regexMatchers("/usuarios").hasRole("ADMIN")
+                .regexMatchers("/usuario/admin").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().csrf().disable();
         http.cors();
