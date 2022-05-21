@@ -59,7 +59,7 @@ public class PedidoController {
             List<LineaPedido> lineasPedido = new ArrayList<>();
             int numLinea = 1;
             for(LineaPedidoInputDTO linea: lineas) {
-                Ropa ropa = ropaService.findById(linea.getId_ropa()).orElseThrow(() -> new Exception("No existe la prenda"));
+                Ropa ropa = ropaService.findById(linea.getIdRopa()).orElseThrow(() -> new Exception("No existe la prenda"));
                 LineaPedido lineaPedido = new LineaPedido();
                 lineaPedido.setRopa(ropa);
                 lineaPedido.setCantidad(linea.getCantidad());

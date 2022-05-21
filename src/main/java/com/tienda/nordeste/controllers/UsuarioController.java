@@ -49,6 +49,7 @@ public class UsuarioController {
         }
     }
 
+    //Registrar usuarios admin
     @PostMapping("/usuario/admin")
         public ResponseEntity<?> registrarUsuarioAdmin(@RequestBody UsuarioInputAdminDTO usuarioInputAdmin) {
         try {
